@@ -48,9 +48,7 @@
 
 ## 🤳 프로젝트 목표
 
-### Docker, k8s, Jenkins를 활용하여 기존에 만들었던 "Frontend" 와 "Backend" 프로젝트에
-
-### CI/CD를 적용한다.
+### Docker, k8s, Jenkins를 활용하여 "Frontend" 와 "Backend" 프로젝트에 CI/CD를 적용한다.
 
 <br>
 
@@ -86,10 +84,11 @@
 
 <br>
 
-### ✅ 장애 대처
+### ✅ 일관성 및 자가치유기능
 
-#### "ReplicaSet" 을 통해, 장애가 발생한 파드를 자동으로 재실행하는 것이 가능하다.
-#### 또한, HPA( Horizontal Pod Autoscaler)와 metrics를 활용하여, 각각의 파드의 부하 증가에 손쉽게 대처할 수 있다.
+#### 쿠버네티스를 사용하면 개발부터 프로덕션까지 일관된 운영 환경을 유지할 수 있다. 이는 환경 간 불일치로 인한 문제를 줄여주고 
+#### 배포 및 운영 과정에서 발생하는 오류를 최소화할 수 있다. 또한 실패한 컨테이너를 자동으로 감지하고 재시작하거나, 
+#### 정상적으로 동작하지 않는 노드를 제외하는 등 자가 치유 기능을 제공해 시스템의 안정성을 유지하게 해준다.
 
 <br>
 
@@ -108,13 +107,14 @@
   <br>    
   <img src="./img/nodesInfo.png"/>
 
-- #### CNI는 "Calico" 를 통해서 구성하였으며, Calico를 선택한 이유는 대부분의 경우에 성능적으로 뛰어나다는 점
 
-  #### 과 오픈 소스라는 점 2가지이다.
+- #### 쿠버네티스는 클러스터의 네트워크 환경을 효율적으로 관리하고 네트워크 구성 요소와 밀접하게 통합되는 가상 네트워크 드라이버를 설치해줘야하므로 CNI 소프트웨어 중에서 Calico를 선택했다.
+    #### Calico는 성능, 보안, 확장성, 유연성 측면에서 뛰어나고 특히 네트워크 정책 관리가 필요한 대규모 컨테이너 클러스터에서 효과적으로 사용되며,
+    #### 간단한 배포와 운영, 그리고 클라우드 및 온프레미스 환경 모두에서 잘 작동하는 네트워크 관리 도구라는 점에서 Calico를 선택했다.
 
 - #### Calico는 LoadBalancer Type의 서비스를 제공하지 않으므로, "metallb" 를 추가로 사용하게 되었다.
+- #### "metrics" 는 HPA를 통한 Autoscaling 구현 즉, metrics를 기반으로 파드의 수를 자동으로 조절하기 위해 사용했다.
 
-- #### "metrics" 는 HPA를 통한 Autoscaling 구현을 위해 사용한다.
 </details>
 <br>
 
@@ -299,8 +299,10 @@
 
 
 
-<!--
+
 ---
+
+<!--
 
 ## ✨ 프로젝트 기본 소개
 
@@ -416,7 +418,7 @@
 <!-- 
 ### &nbsp;&nbsp; &nbsp;[ API 명세서 바로가기](https://www.notion.so/0d57403fe28943c3997598c0de35ceb9?v=f54966510f6c4223b61c64146d9c1940&pvs=4)
 <br>
--->
+
 
 
 ### &nbsp;&nbsp; &nbsp;[ ERD 및 시스템 아키텍쳐 바로가기](https://docs.google.com/spreadsheets/d/121T1XodlKwX98hXcoRJmiMPKQaZVn3RyZAUTDPQm5UY/edit?usp=sharing)
@@ -424,9 +426,9 @@
 [//]: # (<img src="backend/img/system_architecture.png"/>)
 
 <br>
+-->
 
----
-
+<!--
 
 ## &nbsp;📌 프로젝트 설명
 
