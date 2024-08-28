@@ -60,7 +60,7 @@ pipeline {
             script {
                 def isOdd = (BUILD_ID.toInteger() % 2 != 0)
                 def deploymentFile = isOdd ? 'Deployment-blue.yml' : 'Deployment-green.yml'
-                def otherDeployment = isOdd ? 'Deployment-green' : 'Deployment-blue'
+                def otherDeployment = isOdd ? 'Deployment-green.yml' : 'Deployment-blue.yml'
                 def newSelector = isOdd ? 'blue' : 'green'
                 def serviceName = 'backend-svc'
 
