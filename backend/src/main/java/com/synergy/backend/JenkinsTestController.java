@@ -8,6 +8,6 @@ public class JenkinsTestController {
 
     @GetMapping("/test")
     public String test(){
-        return "v1";
+        return "v2";
     }
 }
