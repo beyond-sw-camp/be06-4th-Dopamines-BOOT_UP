@@ -33,7 +33,7 @@ pipeline {
                 def newSelector = isOdd ? 'blue' : 'green'
                 def serviceName = 'frontend-svc'
 
-                def deploymentName = deploymentFile.replace('Deployment-', '').replace('.yml', '')
+                //def deploymentName = deploymentFile.replace('Deployment-', '').replace('.yml', '')
 
                 // SSH 전송 플러그인 사용
                 sshPublisher(
