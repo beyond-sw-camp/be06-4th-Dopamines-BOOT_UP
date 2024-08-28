@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: frontend-green
-          image: postrel63/frontend:latest
+          image: 706com/frontend:latest
           ports:
             - containerPort: 80
           readinessProbe:
