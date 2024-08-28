@@ -12,29 +12,14 @@ pipeline {
     stage('build'){
       steps {
         echo "${pwd()}"
-        // sh './be06-4th-SYNergy/backend/gradlew bootjar'
-        // echo "Building with Gradle"
-        // sh './gradlew bootjar'
-        // dir('be06-4th-SYNergy/backend/') {
-        //   echo "Adding Permission"
-        //   echo "${pwd()}"
-        //   sh 'chmod +x gradlew'
-        //   echo "Building with Gradle"
-        //   sh './gradlew bootjar'
-        // }
         echo "Add Permission"
             sh 'chmod +x ./backend/gradlew'
             echo "Gradle Build"
-            // sh '''
-            //  cd ./backend
-            //  ./gradlew bootJar
-            //  '''
+
             sh '''
               cd ./backend
               ./gradlew bootjar
-
             '''
-
       }
     }
     stage('Docker Build') {
@@ -58,40 +43,30 @@ pipeline {
                 def isOdd = (BUILD_ID.toInteger() % 2 != 0)
                 def deploymentFile = isOdd ? 'Deployment-blue.yml' : 'Deployment-green.yml'
                 def newSelector = isOdd ? 'blue' : 'green'
-                def serviceName = 'backend-svc'
 
+                def serviceName = 'backend-svc'
                 def deploymentName = isOdd ? 'backend-deployment-blue' : 'backend-deployment-green'
                 def otherDeploymentName = isOdd ? 'backend-deployment-green' : 'backend-deployment-blue'
 
-                // SSH 전송 플러그인 사용
                 sshPublisher(
-                    // 오류 발생 시 진행을 멈춤
                     continueOnError: false,
-                    // 오류 발생 시 파이프라인을 실패시킴
                     failOnError: true,
-                    // 전송자 목록
                     publishers: [
-                        // SSH 전송 설명
                         sshPublisherDesc(
-                            // SSH 서버 설정 이름 지정 ( master 노드 )
                             configName: "kube-master",
-                            // 자세한 출력 모드 활성화
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    // 전송할 파일 지정
                                     sourceFiles: "cicd/k8s/backend/${deploymentFile}",
-                                    // 원격 디렉토리 지정 ( 원격서버로 파일을 전송할 위치 )
                                     remoteDirectory: "/home/test/",
-                                    // 전송 후 야멜 파일의 VERSION을 파이프라인 빌드 숫자로 변경
                                     execCommand: """
                                         sed -i "s/latest/${env.BUILD_NUMBER}/g" /home/test/cicd/k8s/backend/${deploymentFile}
                                         kubectl apply -f /home/test/cicd/k8s/backend/${deploymentFile}
-
                                         kubectl scale deployment ${deploymentName} --replicas=2
 
-                                        kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"backend"}}}'
+                                        kubectl wait --for=condition=ready pod -l deployment=${deploymentName} --timeout=120s
 
+                                        kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"backend"}}}'
                                         kubectl scale deployment ${otherDeploymentName} --replicas=0
                                     """
                                 )
