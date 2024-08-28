@@ -35,4 +35,4 @@ spec:
               port: 80
             initialDelaySeconds: 20
             periodSeconds: 10
-      terminationGracePeriodSeconds: 0
+      terminationGracePeriodSeconds: 30
