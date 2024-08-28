@@ -61,7 +61,16 @@ pipeline {
                                     sed -i "s/latest/${env.BUILD_NUMBER}/g" /home/test/cicd/k8s/frontend/${deploymentFile}
                                     kubectl apply -f /home/test/cicd/k8s/frontend/${deploymentFile}
                                     kubectl scale --replicas=2 -f /home/test/cicd/k8s/frontend/${deploymentFile}
+
+                                    # 새로운 파드가 준비 상태가 될 때까지 대기
+                                    kubectl rollout status deployment/${newSelector} --timeout=60s
+
+
                                     kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"frontend"}}}'
+
+                                    # 전환 후 일정 시간 대기
+                                    sleep 10
+
                                     kubectl scale --replicas=0 -f /home/test/cicd/k8s/frontend/${otherDeployment}
                                     """
                                 )
