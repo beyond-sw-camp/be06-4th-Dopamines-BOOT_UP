@@ -78,7 +78,7 @@ pipeline {
                         // SSH 전송 설명
                         sshPublisherDesc(
                             // SSH 서버 설정 이름 지정 ( master 노드 )
-                            configName: "k8s-master",
+                            configName: "kube-master",
                             // 자세한 출력 모드 활성화
                             verbose: true,
                             transfers: [
