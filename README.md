@@ -33,11 +33,15 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white&color=black"></a></a>
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white&color=ffa500"></a></a>
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=flat&logo=GitHub Actions&logoColor=white&color=gray"></a></a>
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white"/></a></a>
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=Docker&logoColor=black&color=blue"/></a></a>
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=Kubernetes&logoColor=blue&color=skyblue"/></a></a>
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/DockerHub-2496ED?style=flat&logo=Docker&logoColor=white&color=skyblue"/></a></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=Kubernetes&logoColor=white&color=blue"/></a></a>
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/metallb-326CE5?style=flat&logo=aaa&logoColor=white&color=gray"/></a></a>
+
 <!--
+
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Slack-4A154B?style=flat&logo=Slack&logoColor=yellow&color=purple"/></a></a>
 -->
 <br>
@@ -47,39 +51,36 @@
 
 ## 🤳 프로젝트 목표
 
-### Docker, k8s, Jenkins를 활용하여 "Frontend" 와 "Backend" 프로젝트에 CI/CD로 구성해 개발단계로 들어가려한다.
+### CI/CD 
+- Github, Docker, Kubernetes, Jenkins 활용
+- "Frontend / Backend" 프로젝트에 대한 지속적인 개발 통합 및 무중단배포 / 배포 자동화를 구성해 본격 개발 단계로 들어가고자 한다.
+
 
 <br>
 
 ---
 
 
-
 ## 💡&nbsp;&nbsp;시스템 아키텍처
 <br>
 
-[//]: # (<img src="./img/systemArchitecture.jpg">)
+<img src="이미지 넣어주세용">
 
 <br>
-
-
 
 
 ### 구성요소
-- #### 프론트엔드 deployment
-- #### 백엔드 deployment
-- #### 젠킨스
-- #### 도커 
-- #### 도커허브
-- #### 노드5개
-- #### 유저
-- #### 깃헙                                                                                                                                                                                                 
+- #### Frontend Deployment ( Vue 3.x )
+- #### Backend Deployment ( Spring boot 3.3.3 )
+- #### Jenkins ( v2.473 )
+- #### Docker ( v27.2.0 )
+- #### Kubernetes ( v1.29.12 )
+- #### Nodes ( Ubuntu 22.04 )
+  - Master Node 1 ( 4 cores , 12GB )
+  - Worker Node 4 ( 2 cores , 8GB )
+- #### GitHub Webhook
+- #### Docker Hub
 
-<br>
-
-#### 유저가 깃헙에 변경사항을 푸쉬하면 Webhook을 통해서 젠킨스 파이프라인에서 파이프라인 실행
-#### project 빌드후, jar파일로 도커빌드를 하고 도커허브에 push 해준다.
-#### push해준 후에 쿠버네티스에서 프론트 또는 백 프로젝트를 배포한다.
 
 
 <br>
@@ -91,15 +92,15 @@
 
 
 ### 🧐 Blue/Green 방식을 사용한 이유 
-
-#### 새로운 버전으로 배포 할때 유저들이 서비스를 이용할 수 없는 다운타임이 발생하게 된다. 
-#### 이 떄 유저들이 서비스 이용에 불편함을 느끼지않도록 블루그린 무중단 배포를 선택했다. 현재 우리 서비스는 개발초기단계이므로 유저유입과 데이터 축적이 먼저라고 판단했다. 따라서 버전별로 일정부하를 주면서 새버전에 대해서 유저의 반응과 호응도를 분석하기에 적합한 카나리방식보다는 블루그린방식이 더 적합하다고 판단했다.
+#### `개발 초기 단계`인 점을 감안하여, `Blue/Green` 무중단 배포 기법을 선택하였다.
+### 서비스 사용자 유입에 대한 예측과 사용자의 니즈를 파악하지 못한다는 점에서, 비교 대상군인 카나리와 비교해 봤을 때 레플리카셋 설정의 기준의 모호함을 감안하였다.
+#### 초기 새로운 기능의 개발 및 출시가 되었을 시, 개발자가 차마 예측하지 못한 다양한 에러에 대한 대응책으로, `이전 버전으로 롤백`이 가능하다는 점에서 현 초기 서비스와 적합하다고 판단하였다.
 
 ### 🧐 추후 개선방향
-#### 추후 서비스에 충분한 유저가 유입되고, 어느정도 데이터가 축적된 후에는 점진적으로 트래픽을 분산시켜 유저의 반응을 볼 수 있는 카나리 배포를 적용시킬 예정이다. 유저 반응을 쉽게 볼 수 있는 프론트는 카나리 배포를 적용시켜, 새로운 버전에 대한 반응을 파악하고 에러가 발생하면 빠르게 반응할 수 있도록 개선할 생각이다.
-
-
-
+#### 다만, Blue-Green 기법의 특성상 안고 가야할 과제는 다음과 같다.
+#### 평상시에 어느 한쪽만을 이용한다는 것은, 인프라의 절반은 "놀고 있는" 상태가 된다는 것을 의미한다. 이는 비용적 측면에서 두 배의 차이를 보이기 때문에 적절한 레플리카셋으로 비용적 부담을 조절해야한다는 점이 있다.
+#### 만일, 서버의 크기와 사용자의 유입률이 증대가 된다면, 프론트엔드 측에 "카나리" 배포 기법 적용을 염두하고 있다.
+#### 직관적인 요소들로 사용자의 니즈를 파악할 수 있는 프론트엔드에서 새로운 버전 출시에 대한 A/B 테스트를 통해 어느쪽이 만족도가 높은지 추적하고 그에 따른 Release 방식을 채택함으로서, 사용자와 개발자 모두에게 좀 더 만족도 높은 기법으로 예상된다.
 
 
 
@@ -110,51 +111,54 @@
 #### 기존에 있던 서버의 환경과 같은 수준의 서버를 두배로 늘렸다가 필요 없어지면 다시 줄이는 비 효율적인 방식을 선택할 수 없다. 한마디로, 물리적으로 존재하는 서버에서는 사용하기 어려우며 현재위치 배포 방식이 더 어울린다. Blue/Green방식은 쉽게 인스턴스를 생성하고 없앨 수 있는 클라우드 환경이나, 컨테이너를 올렸다가 내리는 것이 자유로운 Docker등의 가상환경에서 사용하는 것이 바람직하다.
 -->
 <br>
-<img src="./img/cicdArhitecture.jpg">
+<img src="이미지 넣어주세용">
 
 <br>
 
-### 🚀 배포 시나리오 : Blue/Green 방식을 이용한 무중단 배포
+### 🚀 Blue-Green 배포 시나리오
 
-#### 1. 프로젝트 업데이트 및 변경사항을 git에 push한다.
+#### 1. 코드 변경 및 Push
+- 프로젝트 업데이트 및 변경사항을 git에 push
 
-#### 2. 깃허브(원격 저장소) main branch 에 최신 버전의 프로젝트가 "push" 된다.
+#### 2. GitHub에서 Webhook 트리거
+- 깃허브(원격 저장소) 각 branch 에 최신 버전의 프로젝트가 "push"
 
-#### 3. 깃허브는 젠킨스와 연동된 Webhook을 통해 변경된 프로젝트를(변경사항을)? 보낸다.
+#### 3. GitHub는 Jenkins와 연동된 Webhook을 통해 변경된 프로젝트에 대한 HTTP 요청 전송
 
-#### 4. 젠킨스는 파이프라인에 저장된 절차를 실행한다.
+#### 4. Jenkins 파이프라인 실행
+- 젠킨스는 아래와 같은 파이프라인의 절차를 실행
 
-#### &nbsp;　 a. 젠킨스 서버에 깃허브의 있는 프로젝트를 가져온다. (git clone)
+#### &nbsp;　 a. Git 프로젝트 clone 
+- Jenkins 서버는 HTTP 요청이 감지되면, 깃허브에 있는 프로젝트 clone. (git clone)
 
-#### &nbsp;　 b. 프로젝트가 벡엔드라면 "sh ./gradlew bootjar", 프로젝트가 프론트엔드라면 "npm run build" 를 통해 빌드 한다.
+#### &nbsp;　 b. 빌드 실행
+- 백엔드 프로젝트의 경우 `./gradlew bootjar` 명령어를 사용해 빌드.
+- 프론트엔드 프로젝트의 경우 `npm run build` 명령어를 사용해 빌드.
 
-#### &nbsp;　 c. 빌드를 통해 생긴 "jar파일" 또는 "dist 폴더" 를 이용해 Dockerfile로 Docker image 를 만든다.
+#### &nbsp;　 c. Docker 이미지 생성
+- 생성된 빌드 파일로 Docker image 를 생성 ( ".jar" || "dist 폴더"  )
 
-#### &nbsp;　 d. Docker image를 Docker hub에 "push" 한다.
+#### &nbsp;　 d. Docker 이미지 push
+- 생성된 Docker image를 Docker Hub에 "push"
 
-#### &nbsp;　 e. 젠킨스 서버에서 k8s master에 "deployment" yaml file을 전송한다.
+#### &nbsp;　 e. Kubernetes 배포 파일 전송
+- Jenkins 서버는 Kubernetes 마스터 노드로 배포에 필요한 YAML 파일을 전송
 
-#### &nbsp;　 f. k8s master에서 yaml file들을 적용시킨다. ( kubectl apply )
+#### &nbsp;　 f. Kubernetes 배포 적용
+- ssh를 통해 Kubernetes  master 서버로 접속 후, Kubernetes 마스터 노드는 전송된 .yml 파일을 사용해 변경사항을 적용 (kubectl apply)
 
-[//]: # (#### &nbsp;　 g. 파이프라인을 진행하면서 단계마다 시작, 종료, 결과를 젠킨스 서버에서 Jenkins CI 를 통해)
+#### &nbsp;　 g. Blue/Green 배포 적용
+- 새 버전 연결: 변경된 버전의 Deployment를 새로운 라벨(Green)에 따라 서비스와 연결
+- 구 버전 종료: 이전 버전(Blue)의 Deployment의 파드 수를 0으로 줄이고, 서비스 연결 제거
 
-[//]: # ()
-[//]: # (#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;　 Slack으로 전송한다.)
-
-[//]: # ()
-[//]: # (#### &nbsp;　 h. Slack을 통해 개발자들은 파이프라인 진행 현황을 확인할 수 있다.)
-
-#### &nbsp;   g. 변경된 버전과 라벨에 따라서 신버전(green)의 deployment를 연결해준다.
-
-#### &nbsp;   h. 구버전의 deployment의 파드수를 0으로 변경 후 연결을 끊어준다.
-
-#### 5. 최종적으로 Blue/Green 방식을 통해 무중단 배포가 이루어 진다.
+#### 5. 무중단 배포 완료
+- 최종적으로 Blue/Green 방식을 통해 유저는 중단 없이 서비스의 새로운 버전에 접근 가능
 
 <br>
 
 ---
 
-
+<!--
 ## 💻 CI/CD 시연 영상
 
 <br>
@@ -175,11 +179,9 @@
     </div>
 </details>
 <br>
-
+-->
 
 <br>
-
-
 
 
 
