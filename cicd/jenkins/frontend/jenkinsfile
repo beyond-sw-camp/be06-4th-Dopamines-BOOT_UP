@@ -17,7 +17,7 @@ pipeline {
     stage('Docker Push') {
       steps {
         // Docker build
-        sh "docker build --tag 706com/frontend:${env.BUILD_NUMBER} ."
+        sh "docker build -f cicd/docker/frontend/Dockerfile --tag 706com/frontend:${env.BUILD_NUMBER} ."
         //Docker Login
         sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USER} --password-stdin"
         //Docker imageHub push
@@ -27,13 +27,14 @@ pipeline {
     stage('SSH transfer') {
         steps {
             script {
-                def isOdd = (${env.BUILD_NUMBER}.toInteger() % 2 != 0)
-                def deploymentFile = isOdd ? 'Deployment-b.yml' : 'Deployment-g.yml'
-                def otherDeployment = isOdd ? 'Deployment-g.yml' : 'Deployment-b.yml'
+                def isOdd = (env.BUILD_NUMBER.toInteger() % 2 != 0)
+                def deploymentFile = isOdd ? 'deployment-blue.yml' : 'deployment-green.yml'
+                def test = 'aaa'
+                def otherDeployment = isOdd ? 'deployment-green.yml' : 'deployment-blue.yml'
                 def newSelector = isOdd ? 'blue' : 'green'
                 def serviceName = 'frontend-svc'
 
-                //def deploymentName = deploymentFile.replace('Deployment-', '').replace('.yml', '')
+                def deploymentName = deploymentFile.replace('deployment-', '').replace('.yml', '')
 
                 // SSH 전송 플러그인 사용
                 sshPublisher(
@@ -46,7 +47,7 @@ pipeline {
                         // SSH 전송 설명
                         sshPublisherDesc(
                             // SSH 서버 설정 이름 지정 ( master 노드 )
-                            configName: "k8s-master",
+                            configName: "kube-master",
                             // 자세한 출력 모드 활성화
                             verbose: true,
                             transfers: [
@@ -57,14 +58,11 @@ pipeline {
                                     remoteDirectory: "/home/test/",
                                     // 전송 후 야멜 파일의 VERSION을 파이프라인 빌드 숫자로 변경
                                     execCommand: """
-                                        sed -i "s/latest/${env.BUILD_NUMBER}/g" /home/test/cicd/k8s/frontend/${deploymentFile}
-                                        kubectl apply -f /home/test/cicd/k8s/frontend/${deploymentFile}
-
-                                        kubectl scale deployment ${deploymentName} --replicas=2
-
-                                        kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"frontend"}}}'
-
-                                        kubectl scale deployment ${otherDeployment} --replicas=0
+                                    sed -i "s/latest/${env.BUILD_NUMBER}/g" /home/test/cicd/k8s/frontend/${deploymentFile}
+                                    kubectl apply -f /home/test/cicd/k8s/frontend/${deploymentFile}
+                                    kubectl scale --replicas=2 -f /home/test/cicd/k8s/frontend/${deploymentFile}
+                                    kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"frontend"}}}'
+                                    kubectl scale --replicas=0 -f /home/test/cicd/k8s/frontend/${otherDeployment}
                                     """
                                 )
                             ]
