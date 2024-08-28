@@ -6,7 +6,7 @@ pipeline {
     stage('clone repository'){
       steps {
         echo "Cloning Repository"
-          git branch: 'develop', url: 'https://github.com/beyond-sw-camp/be06-4th-SYNergy.git'
+          git branch: 'backend', url: 'https://github.com/beyond-sw-camp/be06-4th-SYNergy.git'
       }
     }
     stage('build'){
@@ -62,20 +62,12 @@ pipeline {
                                     remoteDirectory: "/home/test/",
                                     execCommand: """
 
-
                                         sed -i "s/latest/${env.BUILD_NUMBER}/g" /home/test/cicd/k8s/backend/${deploymentFile}
                                         kubectl apply -f /home/test/cicd/k8s/backend/${deploymentFile}
                                         kubectl scale deployment ${deploymentName} --replicas=2
-//                                         {
                                          kubectl wait --for=condition=ready pod -l deployment=${deploymentName} --timeout=120s
                                         kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"backend"}}}'
                                         kubectl scale deployment ${otherDeploymentName} --replicas=0
-//                                         } || {
-//                                         kubectl patch service ${serviceName} -p '{\"spec\":{\"selector\":{\"deployment\":\"${currentSelector}\",\"type\":\"backend\"}}}'
-//                                         }
-
-
-
                                     """
 
                                 )
