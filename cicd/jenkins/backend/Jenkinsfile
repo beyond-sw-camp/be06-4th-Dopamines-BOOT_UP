@@ -42,6 +42,7 @@ pipeline {
         echo "${pwd()}"
         sh 'cd ..'
         echo "Building Docker Image"
+        sh 'cd ./cicd/docker/backend'
         sh "docker build --tag ${DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
         echo "tag: ${env.BUILD_NUMBER}"
 
