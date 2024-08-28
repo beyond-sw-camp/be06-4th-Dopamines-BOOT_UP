@@ -39,7 +39,7 @@ pipeline {
     }
     stage('Docker Build') {
       steps {
-        sh "docker build -f /cicd/docker/backend/Dockerfile --tag ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
+        sh "docker build -f /cicd/docker/backend/Dockerfile --tag ${DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
         echo "tag: ${env.BUILD_NUMBER}"
 
       }
