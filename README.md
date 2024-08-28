@@ -12,22 +12,21 @@
   <table>
     <tbody>
       <tr>
-        <td align="center"><a href="https://github.com/JungDongSeob" style="text-decoration: none; color: lightgray;"><img src="assets/image/sundongguri.jpg" width="100px;" height="100px;" background-size="cover;" alt=""/><br /><sub><b> 🐯 곽동현</b></sub></a><br /></td>
-        <td align="center"><a href="https://github.com/kangmoonhye" style="text-decoration: none; color: lightgray;"><img src="https://i.pinimg.com/222x/4e/92/54/4e9254d45725666a3fe8855e9cca5ba9.jpg" width="100px;"  alt=""/><br /><sub><b> 🐶 김동욱</b></sub></a><br /></td>
-        <td align="center"><a href="https://github.com/SongYeonBaek" style="text-decoration: none; color: lightgray;"><img src="https://pbs.twimg.com/profile_images/3008255612/a56d6133b8f6aa19afecd19c79536a76_400x400.png" width="100px;" height="100px;" alt=""/><br /><sub><b> 🐱 한별</b></sub></a><br /></td>
-        <td align="center"><a href="https://github.com/Hyeon28" style="text-decoration: none; color: lightgray;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRich3DFlHTCbrEzOhs6gt6fnn1PUsNBopG2w&s" width="100px;" alt=""/><br /><sub><b> 🐧 최정완</b></sub></a><br /></td>
-            <td align="center"><a href="https://github.com/dohyun0408" style="text-decoration: none; color: lightgray;"><img src="https://pbs.twimg.com/profile_images/3009669833/cae9685e735be56bfe84f5f1a2748e2f_400x400.jpeg" width="100px;" alt=""/><br /><sub><b> 🐺 안준홍</b></sub></a><br /></td>
+        <td align="center"><a href="https://github.com/706com" style="text-decoration: none; color: lightgray;"><img src="assets/image/sundongguri.jpg" width="100px;" height="100px;" background-size="cover;" alt=""/><br /><sub><b> 🐯 곽동현</b></sub></a><br /></td>
+        <td align="center"><a href="https://github.com/postrel63" style="text-decoration: none; color: lightgray;"><img src="https://i.pinimg.com/222x/4e/92/54/4e9254d45725666a3fe8855e9cca5ba9.jpg" width="100px;"  alt=""/><br /><sub><b> 🐶 김동욱</b></sub></a><br /></td>
+        <td align="center"><a href="https://github.com/shinebyul" style="text-decoration: none; color: lightgray;"><img src="https://pbs.twimg.com/profile_images/3008255612/a56d6133b8f6aa19afecd19c79536a76_400x400.png" width="100px;" height="100px;" alt=""/><br /><sub><b> 🐱 한별</b></sub></a><br /></td>
+        <td align="center"><a href="https://github.com/choijw1116" style="text-decoration: none; color: lightgray;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRich3DFlHTCbrEzOhs6gt6fnn1PUsNBopG2w&s" width="100px;" alt=""/><br /><sub><b> 🐧 최정완</b></sub></a><br /></td>
+            <td align="center"><a href="https://github.com/wergx" style="text-decoration: none; color: lightgray;"><img src="https://pbs.twimg.com/profile_images/3009669833/cae9685e735be56bfe84f5f1a2748e2f_400x400.jpeg" width="100px;" alt=""/><br /><sub><b> 🐺 안준홍</b></sub></a><br /></td>
       </tr>
     </tbody>
   </table>
 </div>
 
 
-
+<!--
 ## ✨ 프로젝트 기본 소개
-
 - 
-
+-->
 <br>
 
 ## 📌 기술 스택
@@ -48,175 +47,68 @@
 
 ## 🤳 프로젝트 목표
 
-### Docker, k8s, Jenkins를 활용하여 "Frontend" 와 "Backend" 프로젝트에 CI/CD를 적용한다.
-
-<br>
-
-## CI/CD 의 필요성 ❓
-
-#### 팀원끼리 기능을 만든 후 하루에 여러번 코드변경 및 통합하는 과정이 지속적으로 반복되고
-#### 그에 따라 충돌이 자주 발생하거나 코드품질이 하향될 수 있다.
-#### ➡ 개발주기 초기에 문제를 감지하고 충돌없이 코드품질이 유지되도록 보장해주면서 
-#### 동시에 작업할 수 있도록 해주는 CI의 필요성이 대두되었다.
-#### 개발자가 코드 변경에 따른 빌드 및 테스트 과정을 수동으로 해야하고 그에 따른 코드 검증 및 배포에 시간이 많이 소요된다. 
-#### ➡ 새로운 기능을 추가하거나, 에러를 수정할 때마다 지속적으로 배포해줄 수 있는 CD의 필요성이 대두되었다.
-
-<br>
-
-## CI/CD 의 기대효과 💥
-
-#### 통합된 코드를 자동으로 빌드하고 테스트할 수 있고, 이를 통해 코드 충돌이나 오류를 빠르게 발견하고 수정이 가능해지며, 
-#### 코드를 안정적으로 배포 가능한 상태로 유지하며, 자동으로 실제 운영 환경에 배포가 가능해진다. 
-#### 또한 코드의 버그나 이슈가 초기에 발견되 수정비용이 줄어들고, 그에 따라 리스크가 감소된다. 
-
-
-  <br>
-
----
-
-## 🖥️ 운영 환경 : 쿠버네티스 & 컨테이너 운영 환경 구성
-
-### 🧐 쿠버네티스를 이용한 이유
-
-### ✅ 유연성
-#### 단일 서버에 여러 컨테이너를 배포하거나 여러 서버에 분산하여 컨테이너를 배포할 때 자동으로 관리해주고 
-#### 트래픽의 양에 따라서 리소스를 많이 할당하거나 적게 할당해주는 유연성을 가지고 있다.
-
-<br>
-
-### ✅ 일관성 및 자가치유기능
-
-#### 쿠버네티스를 사용하면 개발부터 프로덕션까지 일관된 운영 환경을 유지할 수 있다. 이는 환경 간 불일치로 인한 문제를 줄여주고 
-#### 배포 및 운영 과정에서 발생하는 오류를 최소화할 수 있다. 또한 실패한 컨테이너를 자동으로 감지하고 재시작하거나, 
-#### 정상적으로 동작하지 않는 노드를 제외하는 등 자가 치유 기능을 제공해 시스템의 안정성을 유지하게 해준다.
+### Docker, k8s, Jenkins를 활용하여 "Frontend" 와 "Backend" 프로젝트에 CI/CD로 구성해 개발단계로 들어가려한다.
 
 <br>
 
 ---
-
-### 📁 &nbsp;&nbsp;k8s 클러스터 구성도
-
-<br>
-
-[//]: # (![클러스터 구성도]&#40;./img/clusterArchitecture.jpg&#41;)
-
-#### ✅ k8s 클러스터는 총 5대의 노드로 클러스터를 구성했다.
-
-<details>
-  <summary><b>노드 상세 정보(사진)</b></summary> 
-  <br>    
-  <img src="./img/nodesInfo.png"/>
-
-
-- #### 쿠버네티스는 클러스터의 네트워크 환경을 효율적으로 관리하고 네트워크 구성 요소와 밀접하게 통합되는 가상 네트워크 드라이버를 설치해줘야하므로 CNI 소프트웨어 중에서 Calico를 선택했다.
-    #### Calico는 성능, 보안, 확장성, 유연성 측면에서 뛰어나고 특히 네트워크 정책 관리가 필요한 대규모 컨테이너 클러스터에서 효과적으로 사용되며,
-    #### 간단한 배포와 운영, 그리고 클라우드 및 온프레미스 환경 모두에서 잘 작동하는 네트워크 관리 도구라는 점에서 Calico를 선택했다.
-
-- #### Calico는 LoadBalancer Type의 서비스를 제공하지 않으므로, "metallb" 를 추가로 사용하게 되었다.
-- #### "metrics" 는 HPA를 통한 Autoscaling 구현 즉, metrics를 기반으로 파드의 수를 자동으로 조절하기 위해 사용했다.
-
-</details>
-<br>
-
-<details>
-<summary><b>Pod 상세 설명</b></summary>  
-<br>
-
-### ✅ 각 Worker 노드에는 다음과 같은 파드가 공통적으로 생성된다.
-
-> - **calico-node : 네트워크 정책을 관리하고 구성하는 역할**
-> - **kube-proxy: 파드 간 통신 및 클러스터 내 네트워크 트래픽을 관리하는 역할**
-> - **metalib-system : 클러스터 내에서 로드 밸런싱 및 외부 서비스 노출을 담당하는 역할**
-
-<br>
-
-### ✅ Master Node에는 다음과 같은 파드들이 추가된다.
-
-> **kube-system Namespace**
->
-> - **coredns : 클러스터 내에서 DNS 서버 역할**
-> - **calico-kube-controllers : 클러스터 내에서 네트워크 정책을 관리하고 구성하는 역할**
-> - **metrics-server : 클러스터 내에서 파드 및 노드의 리소스 사용량 및 성능 지표를 수집하고 노출하는 역할**
-
-<br>
-
-> **metallb-system Namespace**
->
-> - **metallb-speaker : 외부 라우팅 장치와 통신하여 로드 밸런서에 할당된 IP 주소를 라우팅하는 역할**
-> - **metallb-controller : 클러스터 내에서 IP 주소 범위를 관리하고, 외부 서비스에 IP 주소를 동적으로 할당하고 회수하는 역할**
-
- <br>
-
-> **Calico**
-> 
-> - **calico-node: 각 노드에서 실행되는 데몬으로, 파드 네트워크 트래픽을 라우팅하고 네트워크 정책을 관리**
-> - **calico-kube-controllers: Calico의 네트워크 정책 및 IP 관리와 관련된 작업을 수행하는 컨트롤러 파드**
-
-<br>
-
-> **Control Plane**
-> 
-> - **kube-apiserver: 쿠버네티스 API 서버로 모든 클러스터 관리 명령이 이 서버를 통해 전달**
-> - **etcd: 클러스터의 상태를 저장하는 분산형 키-값 데이터베이스**
-> - **kube-controller-manager: 파드 상태 관리, 레플리카셋, 노드 상태 확인 등의 다양한 컨트롤러를 실행**
-> - **kube-scheduler: 새로 생성된 파드가 어떤 워커 노드에 배포될지를 결정하는 스케줄러**
-> - **cloud-controller-manager (클라우드 환경에서): 클라우드와 관련된 자원 관리(예: 클라우드 로드밸런서)를 담당**
-
----
-
-</>
-</details>
 
 
 
 ## 💡&nbsp;&nbsp;시스템 아키텍처
 <br>
 
-<img src="./img/systemArchitecture.jpg">
+[//]: # (<img src="./img/systemArchitecture.jpg">)
 
 <br>
 
-- #### 프론트엔드, 백엔드 각각의 디플로이먼트를 통해 파드로 생성된다.
-- #### 사용자들은 LB (LoadBalancer) 타입의 Frontend-svc를 통해 웹 포트로 Nginx 서버에 접근하여 서비스를
 
-#### &nbsp;&nbsp;&nbsp;　이용한다.
 
-- #### 파드들 간의 통신은 ClusterIp 타입의 서비스를 통해 내부 통신으로 이루어진다. 따라서 외부에 노출 되지
 
-#### &nbsp;&nbsp;&nbsp;　않는다.
-
-<br>
-
-## 💽&nbsp;&nbsp;CI/CD 시스템 아키텍처
-
-<br>
-
-### 🧐 배포 시 고려사항
+### 구성요소
+- #### 프론트엔드 deployment
+- #### 백엔드 deployment
+- #### 젠킨스
+- #### 도커 
+- #### 도커허브
+- #### 노드5개
+- #### 유저
+- #### 깃헙                                                                                                                                                                                                 
 
 <br>
 
-### < 무중단 배포를 해야하는 이유 >
+#### 유저가 깃헙에 변경사항을 푸쉬하면 Webhook을 통해서 젠킨스 파이프라인에서 파이프라인 실행
+#### project 빌드후, jar파일로 도커빌드를 하고 도커허브에 push 해준다.
+#### push해준 후에 쿠버네티스에서 프론트 또는 백 프로젝트를 배포한다.
 
-#### 새로운 버전으로 배포 시 실행중인 서버를 종료하고 새로운 버전의 서버빌드를 진행해야하는데 이렇게 중단배포를 하게되면
-#### 유저들이 서비스를 이용할 수 없는 다운타임이 발생하게 된다. 따라서 유저들이 서비스 이용에 불편함을 느끼지 않게 하기 위하여 무중단 배포를 선택했다.
-
----
-
-### < Blue/Green 방식을 사용한 이유 >
-
-#### Blue/Green 방식은 카나리배포보다는 구현 방식이 간단하고, 호환성 문제가 발생하지 않는다는 장점이 있다. 일정 비율을 정해서
-#### 부하분산을 해줄 수 있는 카나리배포방식은 일정 비율만큼 부하분산을 해주면서 새로운 버전의 서비스를 테스트하기 용이하나 
-#### 우리 서비스에서는 카나리배포방식을 사용할 정도의 규모가 아니라는 판단 하에 복잡한 방법보다는 조금 더 간단하고 빠른 롤백을 할 수 있는 Blue/Green구현 방식을 선택하게 되었다.
-
----
 
 <br>
 
+## 💽&nbsp;&nbsp;CI/CD 배포 방식 및 시나리오
+
+<br>
+
+
+
+### 🧐 Blue/Green 방식을 사용한 이유 
+
+#### 새로운 버전으로 배포 할때 유저들이 서비스를 이용할 수 없는 다운타임이 발생하게 된다. 
+#### 이 떄 유저들이 서비스 이용에 불편함을 느끼지않도록 블루그린 무중단 배포를 선택했다. 현재 우리 서비스는 개발초기단계이므로 유저유입과 데이터 축적이 먼저라고 판단했다. 따라서 버전별로 일정부하를 주면서 새버전에 대해서 유저의 반응과 호응도를 분석하기에 적합한 카나리방식보다는 블루그린방식이 더 적합하다고 판단했다.
+
+### 🧐 추후 개선방향
+#### 추후 서비스에 충분한 유저가 유입되고, 어느정도 데이터가 축적된 후에는 점진적으로 트래픽을 분산시켜 유저의 반응을 볼 수 있는 카나리 배포를 적용시킬 예정이다. 유저 반응을 쉽게 볼 수 있는 프론트는 카나리 배포를 적용시켜, 새로운 버전에 대한 반응을 파악하고 에러가 발생하면 빠르게 반응할 수 있도록 개선할 생각이다.
+
+
+
+
+
+
+<br>
+<!--
 #### ( 주의 ❗)
-
 #### Blue/Green 방식으로 무중단 배포를 할 때, 만약 서버가 구동중인 상황이 클라우드나 가상환경이 아니라면? 정말 그냥 컴퓨터를 통해 물리적인 서버로 존재한다면? 
 #### 기존에 있던 서버의 환경과 같은 수준의 서버를 두배로 늘렸다가 필요 없어지면 다시 줄이는 비 효율적인 방식을 선택할 수 없다. 한마디로, 물리적으로 존재하는 서버에서는 사용하기 어려우며 현재위치 배포 방식이 더 어울린다. Blue/Green방식은 쉽게 인스턴스를 생성하고 없앨 수 있는 클라우드 환경이나, 컨테이너를 올렸다가 내리는 것이 자유로운 Docker등의 가상환경에서 사용하는 것이 바람직하다.
-
+-->
 <br>
 <img src="./img/cicdArhitecture.jpg">
 
@@ -224,19 +116,19 @@
 
 ### 🚀 배포 시나리오 : Blue/Green 방식을 이용한 무중단 배포
 
-#### 1. develop branch에서 통합이 이루어지면, github action이 Junit을 통해 작성된 테스트 코드를 실행한다.
+#### 1. 프로젝트 업데이트 및 변경사항을 git에 push한다.
 
 #### 2. 깃허브(원격 저장소) main branch 에 최신 버전의 프로젝트가 "push" 된다.
 
-#### 3. 깃허브는 젠킨스에게 Webhook을 보낸다.
+#### 3. 깃허브는 젠킨스와 연동된 Webhook을 통해 변경된 프로젝트를(변경사항을)? 보낸다.
 
 #### 4. 젠킨스는 파이프라인에 저장된 절차를 실행한다.
 
 #### &nbsp;　 a. 젠킨스 서버에 깃허브의 있는 프로젝트를 가져온다. (git clone)
 
-#### &nbsp;　 b. 프로젝트가 벡엔드라면 "mvn package", 프로젝트가 프론트엔드라면 "npm run build" 를 통해 빌드 한다.
+#### &nbsp;　 b. 프로젝트가 벡엔드라면 "sh ./gradlew bootjar", 프로젝트가 프론트엔드라면 "npm run build" 를 통해 빌드 한다.
 
-#### &nbsp;　 c. 빌드를 통해 생긴 "jar" 또는 "dist 폴더" 를 이용해 Dockerfile로 Docker image 를 만든다.
+#### &nbsp;　 c. 빌드를 통해 생긴 "jar파일" 또는 "dist 폴더" 를 이용해 Dockerfile로 Docker image 를 만든다.
 
 #### &nbsp;　 d. Docker image를 Docker hub에 "push" 한다.
 
@@ -252,13 +144,16 @@
 [//]: # ()
 [//]: # (#### &nbsp;　 h. Slack을 통해 개발자들은 파이프라인 진행 현황을 확인할 수 있다.)
 
+#### &nbsp;   g. 변경된 버전과 라벨에 따라서 신버전(green)의 deployment를 연결해준다.
+
+#### &nbsp;   h. 구버전의 deployment의 파드수를 0으로 변경 후 연결을 끊어준다.
+
 #### 5. 최종적으로 Blue/Green 방식을 통해 무중단 배포가 이루어 진다.
 
 <br>
 
 ---
 
-<br>
 
 ## 💻 CI/CD 시연 영상
 
