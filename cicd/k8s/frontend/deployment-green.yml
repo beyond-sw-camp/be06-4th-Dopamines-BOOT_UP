@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-green
+  name: frontend-deployment-green
 spec:
   selector:
     matchLabels:
