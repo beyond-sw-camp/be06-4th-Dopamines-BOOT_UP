@@ -64,12 +64,12 @@
 ## 💡&nbsp;&nbsp;시스템 아키텍처
 <br>
 
-<img src="이미지 넣어주세용">
+<img src="https://github.com/user-attachments/assets/c44ed338-e547-4e50-803e-92bf6ad3a598">
 
 <br>
 
 
-### 구성요소
+### 📚구성요소
 - #### Frontend Deployment ( Vue 3.x )
 - #### Backend Deployment ( Spring boot 3.3.3 )
 - #### Jenkins ( v2.473 )
