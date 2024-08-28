@@ -39,7 +39,7 @@ pipeline {
     }
     stage('Docker Build') {
       steps {
-        sh "docker build -f /cicd/docker/backend/Dockerfile --tag ${DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
+        sh "docker build -f cicd/docker/backend/Dockerfile --tag ${DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
         echo "tag: ${env.BUILD_NUMBER}"
 
       }
@@ -57,11 +57,11 @@ pipeline {
             script {
                 def isOdd = (BUILD_ID.toInteger() % 2 != 0)
                 def deploymentFile = isOdd ? 'Deployment-blue.yml' : 'Deployment-green.yml'
-                def otherDeployment = isOdd ? 'Deployment-green.yml' : 'Deployment-blue.yml'
                 def newSelector = isOdd ? 'blue' : 'green'
                 def serviceName = 'backend-svc'
 
-                def deploymentName = deploymentFile.replace('Deployment-', '').replace('.yml', '')
+                def deploymentName = isOdd ? 'backend-deployment-blue' : 'backend-deployment-green'
+                def otherDeploymentName = isOdd ? 'backend-deployment-green' : 'backend-deployment-blue'
 
                 // SSH 전송 플러그인 사용
                 sshPublisher(
@@ -92,7 +92,7 @@ pipeline {
 
                                         kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"backend"}}}'
 
-                                        kubectl scale deployment ${otherDeployment} --replicas=0
+                                        kubectl scale deployment ${otherDeploymentName} --replicas=0
                                     """
                                 )
                             ]
