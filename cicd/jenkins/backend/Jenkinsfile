@@ -1,0 +1,61 @@
+pipeline {
+  agent any
+
+  stages {
+
+    stage('clone repository'){
+      steps {
+        echo "Cloning Repository"
+          git branch: 'develop', url: 'https://github.com/beyond-sw-camp/be06-4th-SYNergy.git'
+      }
+    }
+    stage('build'){
+      steps {
+        echo "${pwd()}"
+        // sh './be06-4th-SYNergy/backend/gradlew bootjar'
+        // echo "Building with Gradle"
+        // sh './gradlew bootjar'
+        // dir('be06-4th-SYNergy/backend/') {
+        //   echo "Adding Permission"
+        //   echo "${pwd()}"
+        //   sh 'chmod +x gradlew'
+        //   echo "Building with Gradle"
+        //   sh './gradlew bootjar'
+        // }
+        echo "Add Permission"
+            sh 'chmod +x ./backend/gradlew'
+            echo "Gradle Build"
+            // sh '''
+            //  cd ./backend
+            //  ./gradlew bootJar
+            //  '''
+            sh '''
+              cd ./backend
+              ./gradlew bootjar
+
+            '''
+
+      }
+    }
+    stage('Docker Build') {
+      steps {
+        echo "${pwd()}"
+        sh 'cd ..'
+        echo "Building Docker Image"
+        sh "docker build --tag ${DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
+        echo "tag: ${env.BUILD_NUMBER}"
+
+      }
+    }
+    stage('Docker Login & Push') {
+      steps {
+        echo "Logging into Docker"
+        sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USER} --password-stdin"
+        echo "Pushing Docker Image"
+        sh "docker push ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
+      }
+    }
+  }
+}
+
+
