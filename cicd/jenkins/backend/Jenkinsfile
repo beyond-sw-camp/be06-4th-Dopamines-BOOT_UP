@@ -62,19 +62,20 @@ pipeline {
                                     remoteDirectory: "/home/test/",
                                     execCommand: """
 
-                                    try{
+
                                         sed -i "s/latest/${env.BUILD_NUMBER}/g" /home/test/cicd/k8s/backend/${deploymentFile}
                                         kubectl apply -f /home/test/cicd/k8s/backend/${deploymentFile}
                                         kubectl scale deployment ${deploymentName} --replicas=2
-
-                                        kubectl wait --for=condition=ready pod -l deployment=${deploymentName} --timeout=120s
-
+                                        {
+                                         kubectl wait --for=condition=ready pod -l deployment=${deploymentName} --timeout=120s
                                         kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"backend"}}}'
                                         kubectl scale deployment ${otherDeploymentName} --replicas=0
-
-                                    }catch(Exception e){
+                                        } || {
                                         kubectl patch service ${serviceName} -p '{\"spec\":{\"selector\":{\"deployment\":\"${currentSelector}\",\"type\":\"backend\"}}}'
-                                    }
+                                        }
+
+
+
                                     """
 
                                 )
