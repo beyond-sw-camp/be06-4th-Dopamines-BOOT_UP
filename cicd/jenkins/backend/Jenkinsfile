@@ -42,6 +42,7 @@ pipeline {
         echo "${pwd()}"
         sh 'cd ..'
         echo "Building Docker Image"
+        sh 'cd ./cicd/docker/backend'
         sh "docker build --tag ${DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
         echo "tag: ${env.BUILD_NUMBER}"
 
@@ -54,6 +55,56 @@ pipeline {
         echo "Pushing Docker Image"
         sh "docker push ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
       }
+    }
+    stage('SSH transfer') {
+        steps {
+            script {
+                def isOdd = (BUILD_ID.toInteger() % 2 != 0)
+                def deploymentFile = isOdd ? 'Deployment-blue.yml' : 'Deployment-green.yml'
+                def otherDeployment = isOdd ? 'Deployment-green.yml' : 'Deployment-blue.yml'
+                def newSelector = isOdd ? 'blue' : 'green'
+                def serviceName = 'backend-svc'
+
+                def deploymentName = deploymentFile.replace('Deployment-', '').replace('.yml', '')
+
+                // SSH 전송 플러그인 사용
+                sshPublisher(
+                    // 오류 발생 시 진행을 멈춤
+                    continueOnError: false,
+                    // 오류 발생 시 파이프라인을 실패시킴
+                    failOnError: true,
+                    // 전송자 목록
+                    publishers: [
+                        // SSH 전송 설명
+                        sshPublisherDesc(
+                            // SSH 서버 설정 이름 지정 ( master 노드 )
+                            configName: "kube-master",
+                            // 자세한 출력 모드 활성화
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    // 전송할 파일 지정
+                                    sourceFiles: "cicd/k8s/backend/${deploymentFile}",
+                                    // 원격 디렉토리 지정 ( 원격서버로 파일을 전송할 위치 )
+                                    remoteDirectory: "/home/test/",
+                                    // 전송 후 야멜 파일의 VERSION을 파이프라인 빌드 숫자로 변경
+                                    execCommand: """
+                                        sed -i "s/latest/${env.BUILD_NUMBER}/g" /home/test/cicd/k8s/backend/${deploymentFile}
+                                        kubectl apply -f /home/test/cicd/k8s/backend/${deploymentFile}
+
+                                        kubectl scale deployment ${deploymentName} --replicas=2
+
+                                        kubectl patch service ${serviceName} -p '{"spec":{"selector":{"deployment":"${newSelector}","type":"backend"}}}'
+
+                                        kubectl scale deployment ${otherDeployment} --replicas=0
+                                    """
+                                )
+                            ]
+                        )
+                    ]
+                )
+            }
+        }
     }
   }
 }
