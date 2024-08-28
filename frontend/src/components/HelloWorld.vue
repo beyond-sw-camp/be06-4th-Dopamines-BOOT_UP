@@ -1,5 +1,5 @@
 <template>
-  <h1>version3</h1>
+  <h1>version5</h1>
 </template>
 
 <script>
